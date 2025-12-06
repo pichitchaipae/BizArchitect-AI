@@ -21,7 +21,12 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   const [activeTab, setActiveTab] = useState<'chat' | 'canvas'>('chat');
   const [selectedStack, setSelectedStack] = useState<TechStack>('opensource'); 
   const [analystRole, setAnalystRole] = useState<AnalystRole>('business_dev');
-  const [theme, setTheme] = useState<Theme>('system');
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window !== 'undefined') {
+      return (localStorage.getItem('theme') as Theme) || 'system';
+    }
+    return 'system';
+  });
   
   // Modal State
   const [editingSection, setEditingSection] = useState<CanvasSection | null>(null);
@@ -87,10 +92,19 @@ export const Dashboard: React.FC<DashboardProps> = ({ user }) => {
   useEffect(() => {
     const root = window.document.documentElement;
     root.classList.remove('light', 'dark');
+    localStorage.setItem('theme', theme);
 
     if (theme === 'system') {
-      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      root.classList.add(systemTheme);
+      const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      const applySystemTheme = () => {
+        const newTheme = mediaQuery.matches ? 'dark' : 'light';
+        root.classList.remove('light', 'dark');
+        root.classList.add(newTheme);
+      };
+
+      applySystemTheme();
+      mediaQuery.addEventListener('change', applySystemTheme);
+      return () => mediaQuery.removeEventListener('change', applySystemTheme);
     } else {
       root.classList.add(theme);
     }

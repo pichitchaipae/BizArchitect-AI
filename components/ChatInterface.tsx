@@ -43,6 +43,7 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [isStackMenuOpen, setIsStackMenuOpen] = useState(false);
   const [isRoleMenuOpen, setIsRoleMenuOpen] = useState(false);
+  const [isThemeMenuOpen, setIsThemeMenuOpen] = useState(false);
   
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -80,12 +81,6 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
     }
   };
 
-  const toggleTheme = () => {
-    if (theme === 'system') onThemeChange('light');
-    else if (theme === 'light') onThemeChange('dark');
-    else onThemeChange('system');
-  };
-
   const ActiveStackIcon = STACK_LABELS[selectedStack].icon;
   const ActiveRoleIcon = ROLE_LABELS[analystRole].icon;
   const ThemeIcon = theme === 'light' ? Sun : theme === 'dark' ? Moon : Monitor;
@@ -115,13 +110,50 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           </div>
           
           {/* Theme Toggle */}
-          <button 
-            onClick={toggleTheme}
-            className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
-            title={`Theme: ${theme}`}
-          >
-            <ThemeIcon className="w-5 h-5" />
-          </button>
+          <div className="relative">
+            <button 
+              onClick={() => setIsThemeMenuOpen(!isThemeMenuOpen)}
+              className="p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
+              title={`Theme: ${theme}`}
+            >
+              <ThemeIcon className="w-5 h-5" />
+            </button>
+
+            {isThemeMenuOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setIsThemeMenuOpen(false)} />
+                <div className="absolute top-full right-0 mt-2 w-32 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-xl z-20 py-1 overflow-hidden">
+                  <div className="px-3 py-2 text-[10px] uppercase font-bold text-slate-400 dark:text-slate-500 tracking-wider bg-slate-50 dark:bg-slate-900/50 border-b border-slate-200 dark:border-slate-700">
+                    Theme
+                  </div>
+                  {[
+                    { id: 'light', label: 'Light', icon: Sun },
+                    { id: 'dark', label: 'Dark', icon: Moon },
+                    { id: 'system', label: 'System', icon: Monitor }
+                  ].map((t) => {
+                    const Icon = t.icon;
+                    return (
+                      <button
+                        key={t.id}
+                        onClick={() => {
+                          onThemeChange(t.id as Theme);
+                          setIsThemeMenuOpen(false);
+                        }}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors ${
+                          theme === t.id 
+                            ? 'bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400' 
+                            : 'text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700'
+                        }`}
+                      >
+                        <Icon className="w-3.5 h-3.5" />
+                        <span className="font-medium">{t.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </>
+            )}
+          </div>
         </div>
 
         {/* Controls Row */}
