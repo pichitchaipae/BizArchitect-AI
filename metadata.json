@@ -1,0 +1,8 @@
+{
+  "name": "BizArchitect AI",
+  "description": "An interactive AI Business Architect that turns napkin sketches and raw ideas into structured Business Model Canvases through intelligent interrogation.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
