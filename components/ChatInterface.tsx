@@ -339,6 +339,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
         )}
         <div className="flex items-end gap-2 bg-slate-50 dark:bg-slate-800 p-2 rounded-xl border border-slate-200 dark:border-slate-700 focus-within:border-indigo-500/50 transition-colors">
           <input
+            id="file-upload"
+            name="file-upload"
             type="file"
             accept="image/*"
             className="hidden"
@@ -354,6 +356,8 @@ export const ChatInterface: React.FC<ChatInterfaceProps> = ({
           </button>
           
           <textarea
+            id="chat-input"
+            name="chat-input"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyPress}

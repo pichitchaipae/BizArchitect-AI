@@ -73,8 +73,10 @@ export const EditModal: React.FC<EditModalProps> = ({ sectionKey, item, isOpen, 
 
           {/* Content Editor */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Detailed Content</label>
+            <label htmlFor="content" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Detailed Content</label>
             <textarea
+              id="content"
+              name="content"
               value={content}
               onChange={(e) => setContent(e.target.value)}
               className="w-full h-40 p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-800 dark:text-slate-200 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none leading-relaxed transition-colors"
@@ -84,8 +86,10 @@ export const EditModal: React.FC<EditModalProps> = ({ sectionKey, item, isOpen, 
 
           {/* Reasoning/Notes Editor */}
           <div>
-            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Analyst Notes / AI Reasoning</label>
+            <label htmlFor="reasoning" className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Analyst Notes / AI Reasoning</label>
             <textarea
+              id="reasoning"
+              name="reasoning"
               value={reasoning}
               onChange={(e) => setReasoning(e.target.value)}
               className="w-full h-20 p-3 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-lg text-slate-500 dark:text-slate-400 text-xs focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none resize-none transition-colors"

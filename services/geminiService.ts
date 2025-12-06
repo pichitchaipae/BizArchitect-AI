@@ -153,7 +153,12 @@ export const analyzeBusinessIdea = async (
   role: AnalystRole
 ): Promise<ArchitectResponse> => {
   
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = process.env.API_KEY;
+  if (!apiKey || apiKey === 'your_gemini_api_key_here') {
+    throw new Error("Gemini API Key is missing or invalid. Please check your .env file.");
+  }
+
+  const ai = new GoogleGenAI({ apiKey });
   const modelId = "gemini-3-pro-preview";
 
   const historyParts = history.map(msg => ({

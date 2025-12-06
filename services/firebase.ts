@@ -4,16 +4,17 @@ import 'firebase/compat/firestore';
 
 // Configuration provided by user
 const firebaseConfig = {
-  apiKey: "AIzaSyCgoihYkeyL9aSdJmQXIKYEnUSW2EvYuUQ",
-  authDomain: "myapp-backend-106b2.firebaseapp.com",
-  projectId: "myapp-backend-106b2",
-  storageBucket: "myapp-backend-106b2.firebasestorage.app",
-  messagingSenderId: "597814607058",
-  appId: "1:597814607058:web:3193f145eb430e9bc5010b",
-  measurementId: "G-2TNLX9VY7M"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-export const isConfigured = true;
+export const isConfigured = import.meta.env.VITE_FIREBASE_API_KEY && 
+                           import.meta.env.VITE_FIREBASE_API_KEY !== "your_api_key_here";
 
 let app;
 let auth: firebase.auth.Auth | undefined;
