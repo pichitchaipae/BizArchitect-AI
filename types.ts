@@ -22,14 +22,18 @@ export interface ChatMessage {
   text: string;
   image?: string; // Base64 string for display
   timestamp: number;
+  suggestions?: string[]; // New: Chips for user reply
 }
 
 export interface ArchitectResponse {
   responseToUser: string;
   canvasUpdate: BusinessCanvasState;
+  suggestions: string[]; // New: AI generated suggestions
 }
 
 export type TechStack = 'opensource' | 'enterprise' | 'aws' | 'google';
+export type Theme = 'light' | 'dark' | 'system';
+export type AnalystRole = 'business_dev' | 'mba_consultant';
 
 export enum CanvasSection {
   KeyPartners = 'keyPartners',

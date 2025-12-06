@@ -1,24 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>BizArchitect AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                750: '#2d3748', // Custom slate shade
+              }
+            }
+          }
+        }
+      }
+    </script>
     <style>
-      /* Custom scrollbar for dark theme */
+      /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
         height: 8px;
       }
       ::-webkit-scrollbar-track {
-        background: #1f2937; 
+        background: transparent; 
       }
       ::-webkit-scrollbar-thumb {
-        background: #4b5563; 
+        background: #cbd5e1; 
         border-radius: 4px;
       }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #4b5563; 
+      }
       ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8; 
+      }
+      .dark ::-webkit-scrollbar-thumb:hover {
         background: #6b7280; 
       }
     </style>
@@ -29,12 +49,18 @@
     "react/": "https://aistudiocdn.com/react@^19.2.1/",
     "react": "https://aistudiocdn.com/react@^19.2.1",
     "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.1/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0"
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.556.0",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "docx": "https://esm.sh/docx@8.5.0",
+    "firebase/app": "https://esm.sh/firebase@10.8.0/compat/app",
+    "firebase/auth": "https://esm.sh/firebase@10.8.0/compat/auth",
+    "firebase/firestore": "https://esm.sh/firebase@10.8.0/compat/firestore",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/"
   }
 }
 </script>
 </head>
-  <body class="bg-slate-950 text-slate-200 antialiased overflow-hidden">
+  <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-200 antialiased overflow-hidden transition-colors duration-300">
     <div id="root"></div>
   </body>
 </html>
